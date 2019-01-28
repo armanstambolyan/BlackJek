@@ -81,9 +81,55 @@ function getSum(arr) {
     }
     return sum;
 }
+function getStatus() {
+    return ' Dealer: ' + dealer.join(' ') + ' Player: ' + player.join(' ') + '.';
+}
 
 var dealer = [getCard()];
 var player = [getCard(), getCard()];
 
-alert('Дилер: ' + dealer.join(' ') + '; Игрок: ' + player.join(' '));
-alert('Текущая сумма карт у игрока: ' + getSum(player))
+alert(getStatus());
+
+if (getSum(player)==21){
+    alert("YOU WIN");
+}
+
+else{
+var answer = '';
+do {
+    answer = prompt(getStatus() + ' Хотите еще карту? 1 - да, иначе - нет');
+    if (answer == 1) {
+        player.push(getCard());
+         if (getSum(player) > 21) {
+            alert('You Lose! Your Sum: ' + getSum(player));
+            break;
+        }
+        else if (getSum(player) == 21) {
+            alert('Congratulations! You Win! Your Sum: ' + getSum(player));
+            break;
+        }
+    }
+    else  {
+       while (getSum(dealer)<17) {
+        dealer.push(getCard());
+       }
+        var sumDealer = getSum(dealer);
+        var sumPlayer = getSum(player);
+
+        if (sumDealer == 21){
+            alert("Dealer Win " + getStatus());
+        }
+        else if(sumDealer > 21){
+            alert("Player Win" + getStatus());
+        }
+        else if(sumDealer == sumPlayer){
+            alert("Draw" + getStatus());
+        }
+        else if(sumPlayer>sumDealer){
+            alert("Player Win" + getStatus());
+        }
+        else{
+            alert("Player Lose" + getStatus());
+        }
+    }
+} while (answer == 1);}
